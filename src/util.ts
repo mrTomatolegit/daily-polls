@@ -20,7 +20,7 @@ export function readCSV<T extends Record<string, string>>(filePath: string, defa
 }
 
 export function createCSVRow<T extends Record<string, string>>(data: T, headers: string): string {
-    return headers.split(',').map(header => data[header]).join(',');
+    return headers.split(',').map(header => data[header] || '').join(',');
 }
 
 export function appendCSVRow<T extends Record<string, string>>(filePath: string, data: T, headers: string) {
