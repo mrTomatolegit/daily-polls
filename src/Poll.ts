@@ -52,6 +52,8 @@ class Poll {
     public title: string;
     public options: string[];
     public cronJob?: CronJob;
+
+    private hasRandom: boolean = false;
     constructor(private bot: Eris.Client, data: PollData, public autostart = true) {
         this.id = data.id;
         this._cron = data.cron;
@@ -65,12 +67,14 @@ class Poll {
     }
 
     private setupCron() {
+        this.hasRandom = false;
         if (this.cronJob) {
             this.cronJob.stop();
         }
         this._cron.split(' ').forEach((value, index) => {
             // add support for random values. format: rand(min-max)
             if (value.startsWith('rand(') && value.endsWith(')')) {
+                this.hasRandom = true;
                 const [min, max] = value
                     .substring(5, value.length - 1)
                     .split('-')
@@ -95,6 +99,7 @@ class Poll {
     }
 
     public run() {
+        if (this.hasRandom) this.setupCron();
         return this.bot.createMessage(this.channelId, this.toMessageContent());
     }
 
