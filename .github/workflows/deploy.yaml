@@ -5,7 +5,7 @@ on:
 
 env:
     REGISTRY: registry.mrtomato.dev
-    IMAGE_NAME: mrTomatolegit/daily-polls:latest
+    IMAGE_NAME: mrtomatolegit/daily-polls:latest
 
 jobs:
     deploy:
