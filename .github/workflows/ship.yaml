@@ -1,0 +1,24 @@
+name: ship
+run-name: Shipping ${{ github.actor }}'s changes
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+    REGISTRY: registry.mrtomato.dev
+    IMAGE_NAME: mrTomatolegit/daily-polls:latest
+
+jobs:
+    ship:
+        name: ship image
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Login
+              run: |
+                  echo ${{ secrets.CR_PWD }} | docker login ${{ env.REGISTRY }} -u ${{ secrets.CR_USER }} --password-stdin
+            - name: Build and Ship
+              run: |
+                  docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+                  docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
