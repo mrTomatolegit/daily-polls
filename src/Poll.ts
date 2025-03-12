@@ -90,7 +90,7 @@ class Poll {
             },
             null,
             this.autostart,
-            'utc'
+            'Europe/Paris'
         );
     }
 
