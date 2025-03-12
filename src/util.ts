@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 export function readCSV<T extends Record<string, string>>(filePath: string, defaultHeaders: string): T[] {
-    if (fs.existsSync(filePath)) {
+    if (!fs.existsSync(filePath)) {
         fs.writeFileSync(filePath, defaultHeaders);
     }
     const data = fs.readFileSync(filePath, 'utf8');
