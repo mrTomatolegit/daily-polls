@@ -1,0 +1,9 @@
+services:
+    daily-polls:
+        container_name: daily-polls
+        build: .
+        env_file:
+            - .env
+        
+        volumes:
+            - ./data:/app/data
