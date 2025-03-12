@@ -7,11 +7,12 @@
         "typescript": "^5.8.2"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "prestart": "npm run build",
         "start": "node dist/index.js",
         "dev": "docker compose up --build"
     },
-    "author": "",
+    "author": "mrTomatolegit",
     "description": "",
     "dependencies": {
         "cron": "^4.1.0",
