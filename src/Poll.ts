@@ -87,6 +87,7 @@ class Poll {
         }
 
         const finalCron = cronParts.join(' ');
+        console.log(`Setting up cron ${finalCron} for poll ${this.id} ${this.title}`);
         this.cronJob = new CronJob(
             finalCron,
             () => {
@@ -103,6 +104,7 @@ class Poll {
     }
 
     public run() {
+        console.log(`Running poll ${this.id} ${this.title}`);
         if (this.hasRandom) this.setupCron();
         return this.bot.createMessage(this.channelId, this.toMessageContent());
     }
