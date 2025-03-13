@@ -71,8 +71,10 @@ class Poll {
         if (this.cronJob) {
             this.cronJob.stop();
         }
-        this._cron.split(' ').forEach((value, index) => {
-            // add support for random values. format: rand(min-max)
+
+        let cronParts = this._cron.split(' ');
+        for (let i = 0; i < cronParts.length; i++) {
+            const value = cronParts[i];
             if (value.startsWith('rand(') && value.endsWith(')')) {
                 this.hasRandom = true;
                 const [min, max] = value
@@ -80,11 +82,13 @@ class Poll {
                     .split('-')
                     .map(Number);
                 const randomValue = Math.floor(Math.random() * (max - min + 1) + min);
-                this._cron = this._cron.replace(value, randomValue.toString());
+                cronParts[i] = randomValue.toString();
             }
-        });
+        }
+
+        const finalCron = cronParts.join(' ');
         this.cronJob = new CronJob(
-            this.cron,
+            finalCron,
             () => {
                 this.run();
             },
