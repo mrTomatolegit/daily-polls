@@ -3,13 +3,16 @@ import { readCSV } from './util';
 import path from 'path';
 import Poll, { POLL_DATA_HEADERS, PollData, RawPollData } from './Poll';
 
-const bot = Eris(process.env.DISCORD_TOKEN as string, {
+const bot = new Eris.Client("Bot " + process.env.DISCORD_TOKEN as string, {
     intents: ['guilds']
 });
 
 const polls = new Map();
 
 bot.connect();
+
+bot.on('error', console.error);
+bot.on('warn', console.warn);
 
 bot.on('ready', () => {
     console.log('Bot is ready');
