@@ -111,6 +111,7 @@ class Poll {
 
     public toMessageContent(): Eris.MessageContent {
         return {
+            content: '@everyone',
             poll: {
                 question: {
                     text: this.title
@@ -122,7 +123,8 @@ class Poll {
                 duration: this.duration,
                 allow_multiselect: this.multi,
                 layout_type: 1
-            }
+            },
+            allowedMentions: { everyone: true }
         };
     }
 
