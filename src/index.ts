@@ -14,8 +14,7 @@ bot.connect();
 bot.on('error', console.error);
 bot.on('warn', console.warn);
 
-bot.on('ready', () => {
-    console.log('Bot is ready');
+bot.once('ready', () => {
     readCSV<RawPollData>(path.join(process.cwd(), 'data/polls.csv'), POLL_DATA_HEADERS).forEach(
         rpollData => {
             let pollData: PollData = {
@@ -36,3 +35,7 @@ bot.on('ready', () => {
         }
     );
 });
+
+bot.on('ready', () => {
+    console.log('Bot is ready');
+})
