@@ -6,10 +6,10 @@ COPY package*.json ./
 
 COPY tsconfig.json ./
 
+RUN npm install --omit=dev
+
 COPY src ./src
 
-RUN npm install
-
-RUN npm run build
+COPY dist ./dist
 
 CMD ["npm", "start"]

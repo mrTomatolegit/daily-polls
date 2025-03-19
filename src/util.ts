@@ -5,7 +5,7 @@ export function readCSV<T extends Record<string, string>>(filePath: string, defa
         fs.writeFileSync(filePath, defaultHeaders);
     }
     const data = fs.readFileSync(filePath, 'utf8');
-    const parsed = data.split('\n').map(line => line.split('#')[0].split(','));
+    const parsed = data.split('\n').map(line => line.split('#')[0].split(',')).filter(line => line?.length > 0 && line[0] !== '');
     const headers = parsed.shift();
     if (!headers) return [];
     const returnValue = parsed.map((line, i) => {
