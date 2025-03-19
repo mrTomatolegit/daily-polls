@@ -21,6 +21,6 @@ jobs:
             - name: Connect and Pull
               run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && echo ${{ secrets.CR_PWD }} | docker login ${{ env.REGISTRY }} -u ${{ secrets.CR_USER }} --password-stdin && docker compose pull && docker compose up -d && exit"
             - name: Initial logs
-              run: timeout 30s ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose logs -f && exit"
+              run: (timeout 30s ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && docker compose logs -f && exit") || true
             - name: Cleanup
               run: rm -rf ~/.ssh
