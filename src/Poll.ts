@@ -2,13 +2,14 @@ import { CronJob } from 'cron';
 import Eris from 'eris';
 
 export const POLL_DATA_HEADERS =
-    'id,guildId,channelId,cron,duration,multi,title,option1,option2,option3,option4,option5,option6,option7,option8,option9,option10';
+    'id,guildId,channelId,cron,content,duration,multi,title,option1,option2,option3,option4,option5,option6,option7,option8,option9,option10';
 
 export type PollData = {
     id: string;
     guildId: string;
     channelId: string;
     cron: string;
+    content: string;
     duration: number;
     multi: boolean;
     title: string;
@@ -20,6 +21,7 @@ export type RawPollData = {
     guildId: string;
     channelId: string;
     cron: string;
+    content: string;
     duration: string;
     multi: string;
     title: string;
@@ -48,6 +50,7 @@ class Poll {
     public guildId: string;
     public channelId: string;
     public duration: number;
+    public content: string;
     public multi: boolean;
     public title: string;
     public options: string[];
@@ -59,6 +62,7 @@ class Poll {
         this._cron = data.cron;
         this.guildId = data.guildId;
         this.channelId = data.channelId;
+        this.content = data.content;
         this.duration = data.duration;
         this.multi = data.multi;
         this.title = data.title;
@@ -111,7 +115,7 @@ class Poll {
 
     public toMessageContent(): Eris.MessageContent {
         return {
-            content: '@everyone',
+            content: this.content || undefined,
             poll: {
                 question: {
                     text: this.title

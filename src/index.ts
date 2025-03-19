@@ -24,6 +24,7 @@ bot.once('ready', () => {
                 duration: parseInt(rpollData.duration),
                 multi: rpollData.multi === '1',
                 cron: rpollData.cron,
+                content: rpollData.content,
                 title: rpollData.title,
                 options: []
             };
