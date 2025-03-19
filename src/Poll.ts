@@ -128,7 +128,7 @@ class Poll {
                 allow_multiselect: this.multi,
                 layout_type: 1
             },
-            allowedMentions: { everyone: true }
+            allowedMentions: { everyone: true, roles: true, users: true }
         };
     }
 
