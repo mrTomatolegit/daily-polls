@@ -63,12 +63,20 @@ export async function setupCommands(bot: Client, guildId?: string) {
         await deleteCommand(bot, command.id, guildId);
     }
     bot.on('interactionCreate', async interaction => {
-        if (interaction.type !== Constants.InteractionTypes.APPLICATION_COMMAND) return;
-        const interactionData = interaction.data as CommandInteractionData;
-        const cmdName = interactionData.name;
-        console.debug(`Command ${cmdName} received`);
-        if (cmdName in commands_runners) {
-            return commands_runners[cmdName](interaction as CommandInteraction);
+        if (interaction.type === Constants.InteractionTypes.APPLICATION_COMMAND) {
+            const interactionData = interaction.data as CommandInteractionData;
+            const cmdName = interactionData.name;
+            console.debug(`Command ${cmdName} received`);
+            if (cmdName in commands_runners) {
+                return commands_runners[cmdName](interaction as CommandInteraction);
+            }
+        } else if (interaction.type == Constants.InteractionTypes.APPLICATION_COMMAND_AUTOCOMPLETE) {
+            const interactionData = interaction.data as CommandInteractionData;
+            const cmdName = interactionData.name;
+            console.debug(`Autocomplete ${cmdName} received`);
+            if (cmdName in command_autocomplete_runners) {
+                return command_autocomplete_runners[cmdName](interaction as AutocompleteInteraction);
+            }
         }
     });
 }

@@ -11,7 +11,8 @@ export const trigger_metadata: Eris.ApplicationCommandBulkEditOptions<false, App
             type: Eris.Constants.ApplicationCommandOptionTypes.STRING,
             description: 'name of the existing poll',
             name: 'poll',
-            required: true
+            required: true,
+            autocomplete: true
         }
     ]
 };
