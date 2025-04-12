@@ -91,6 +91,7 @@ class Poll {
         }
 
         const finalCron = cronParts.join(' ');
+        if (finalCron.length < 5) return;
         console.log(`Setting up cron ${finalCron} for poll ${this.id} ${this.title}`);
         this.cronJob = new CronJob(
             finalCron,
